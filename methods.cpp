@@ -29,6 +29,48 @@ for(int i=0; i<n; i++) {
 }
 
 //FFT (cut-off remained)
+
+// Complex FFT implementation
+void fft(std::vector<std::complex<double>>& x) {
+    const int N = x.size();
+    if (N <= 1) return;
+
+
+    std::vector<std::complex<double>> even(N/2), odd(N/2);
+    for (int i = 0; i < N/2; i++) {
+        even[i] = x[2*i];
+        odd[i] = x[2*i+1];
+    }
+
+
+    fft(even);
+    fft(odd);
+
+
+    for (int k = 0; k < N/2; k++) {
+        std::complex<double> t = std::polar(1.0, -2 * M_PI * k / N) * odd[k];
+        x[k] = even[k] + t;
+        x[k + N/2] = even[k] - t;
+    }
+}
+
+// Inverse FFT
+void ifft(std::vector<std::complex<double>>& x) {
+
+    for (auto& val : x) {
+        val = std::conj(val);
+    }
+    
+
+    fft(x);
+    
+
+    const int N = x.size();
+    for (auto& val : x) {
+        val = std::conj(val) / static_cast<double>(N);
+    }
+}
+
 int reconstruct_low_eigenvalues_fft(double* S, double* ev, int n, double threshold) {
 
     int padded_n = nextPowerOf2(n);
