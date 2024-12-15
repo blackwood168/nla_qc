@@ -5,10 +5,7 @@
 
 Квантово-химические расчеты в данной работе проводились для молекулы :
 
-<div style="display: flex; justify-content: center;">
-    <img src="plots/ml1.png" width="400" alt="Molecule structure 1"/>
-    <img src="plots/ml2.png" width="400" alt="Molecule structure 2"/>
-</div>
+![](plots/ml1.png) ![](plots/ml2.png)
 
 
 ## 🛠️ Реализованные методы 
